@@ -11,6 +11,22 @@ export class CategoriesService {
     private categoryRepository: CategoryRepository,
   ){}
 
+  async getAllCategories(offset: number, limit: number): Promise<Category[]> {
+    return await this.categoryRepository.find();
+  }
+
+  async createCategory(createCategoryDto: CreateCategoryDto): Promise<Category> {
+    return await this.categoryRepository.createCategory(createCategoryDto);
+  }
+
+  async deleteCategory(id: number): Promise<void> {
+    const result = await this.categoryRepository.delete(id);
+    
+    if(result.affected === 0) {
+      throw new NotFoundException('Category not found.');
+    }
+  }
+
   async getCategoryById(id: number): Promise<Category> {
     const category = await this.categoryRepository.findOne(id);
 
@@ -21,7 +37,4 @@ export class CategoriesService {
     return category;
   }
 
-  async createCategory(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    return await this.categoryRepository.createCategory(createCategoryDto);
-  }
 }

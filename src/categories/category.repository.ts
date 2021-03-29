@@ -6,10 +6,11 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 export class CategoryRepository extends Repository<Category> {
 
   async createCategory(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    const {name, description} = createCategoryDto;
+    const {name, graphColor, maxAmount} = createCategoryDto;
     const category = new Category();
     category.name = name;
-    category.description = description;
+    category.graphColor = graphColor;
+    category.maxAmount = maxAmount;
     await category.save();
 
     return category;

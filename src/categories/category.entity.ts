@@ -9,5 +9,8 @@ export class Category extends BaseEntity {
   name: string
 
   @Column()
-  description: string
+  graphColor: string
+
+  @Column('decimal')
+  maxAmount: number
 }

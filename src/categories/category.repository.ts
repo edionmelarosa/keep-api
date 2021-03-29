@@ -15,4 +15,14 @@ export class CategoryRepository extends Repository<Category> {
 
     return category;
   }
+
+  async updateCategory(category: Category, createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const {name, graphColor, maxAmount} = createCategoryDto;
+    category.name = name;
+    category.graphColor = graphColor;
+    category.maxAmount = maxAmount;
+    await category.save();
+
+    return category;
+  }
 }

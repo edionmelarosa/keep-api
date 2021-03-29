@@ -19,6 +19,11 @@ export class CategoriesService {
     return await this.categoryRepository.createCategory(createCategoryDto);
   }
 
+  async updateCategory(id: number, createCategoryDto: CreateCategoryDto): Promise<Category> {
+    const category = await this.getCategoryById(id);
+    return await this.categoryRepository.updateCategory(category, createCategoryDto);
+  }
+
   async deleteCategory(id: number): Promise<void> {
     const result = await this.categoryRepository.delete(id);
     

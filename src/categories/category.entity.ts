@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Expense } from '../expenses/expense.entity';
 
 @Entity()
 export class Category extends BaseEntity {
@@ -13,4 +14,13 @@ export class Category extends BaseEntity {
 
   @Column('decimal')
   maxAmount: number
+
+  @OneToMany(() => Expense, expense => expense.category)
+  expenses: Expense[]
+  
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
 }

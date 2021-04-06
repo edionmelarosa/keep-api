@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoryRepository } from './category.repository';
 import { Category } from './category.entity';
+import { FilterCategoryDto } from './dto/filter-category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -11,8 +12,21 @@ export class CategoriesService {
     private categoryRepository: CategoryRepository,
   ){}
 
-  async getAllCategories(offset: number, limit: number): Promise<Category[]> {
-    return await this.categoryRepository.find();
+  async getAllCategories(filterCategoryDto: FilterCategoryDto): Promise<Category[]> {
+    const {name} = filterCategoryDto;
+    interface whereInterface {
+      name?: string
+    }
+
+    const where: whereInterface = {}
+    if (name) {
+      where.name = name;
+    }
+
+    return await this.categoryRepository.find({
+      where,
+      relations: ['expenses']
+    });
   }
 
   async createCategory(createCategoryDto: CreateCategoryDto): Promise<Category> {
@@ -33,7 +47,9 @@ export class CategoriesService {
   }
 
   async getCategoryById(id: number): Promise<Category> {
-    const category = await this.categoryRepository.findOne(id);
+    const category = await this.categoryRepository.findOne(id, {
+      relations: ['expenses']
+    });
 
     if(!category) {
       throw new NotFoundException('Category not found.');

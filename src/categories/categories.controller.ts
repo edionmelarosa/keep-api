@@ -1,15 +1,16 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Category } from './category.entity';
+import { FilterCategoryDto } from './dto/filter-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private categoriesService: CategoriesService) {}
 
   @Get()
-  async getAllCategories(@Param('id') offset: number, @Param('limit') limit: number): Promise<Category[]> {
-    return this.categoriesService.getAllCategories(offset, limit);
+  async getAllCategories(@Query() filterCategoryDto: FilterCategoryDto): Promise<Category[]> {
+    return this.categoriesService.getAllCategories(filterCategoryDto);
   }
 
   @Post()

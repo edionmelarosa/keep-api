@@ -4,6 +4,9 @@ import { ExpenseRepository } from './expense.repository';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { Expense } from './expense.entity';
 import { CategoriesService } from '../categories/categories.service';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { FilterExpenseDto } from './dto/filter-expense.dto';
+import { FindOperator, Like } from 'typeorm';
 
 @Injectable()
 export class ExpensesService {
@@ -13,8 +16,24 @@ export class ExpensesService {
     private categoriesService: CategoriesService
   ){}
 
-  async getAllExpenses(offset: number, limit: number): Promise<Expense[]> {
-    return await this.expenseRepository.find();
+  async getAllExpenses(filterExpenseDto: FilterExpenseDto): Promise<Expense[]> {
+    const {category, name} = filterExpenseDto;
+    interface whereInterface {
+      name?: FindOperator<string>,
+      category?: number
+    }
+    const where: whereInterface = {}
+    if (name) {
+      where.name = Like(`%${name}%`)
+    }
+    if (category) {
+      where.category = category 
+    }
+
+    return await this.expenseRepository.find({
+      where,
+      relations: ['category']
+    });
   }
 
   async createExpense(createExpenseDto: CreateExpenseDto): Promise<Expense> {
@@ -23,11 +42,9 @@ export class ExpensesService {
     return await this.expenseRepository.createExpense(categoryFound, createExpenseDto);
   }
 
-  async updateExpense(id: number, createExpenseDto: CreateExpenseDto): Promise<Expense> {
+  async updateExpense(id: number, updateExpenseDto: UpdateExpenseDto): Promise<Expense> {
     const expense = await this.getExpenseById(id);
-    const {category} = createExpenseDto;
-    const categoryFound = await this.categoriesService.getCategoryById(category);
-    return await this.expenseRepository.updateExpense(categoryFound, expense, createExpenseDto);
+    return await this.expenseRepository.updateExpense(expense, updateExpenseDto);
   }
 
   async deleteExpense(id: number): Promise<void> {
@@ -39,7 +56,9 @@ export class ExpensesService {
   }
 
   async getExpenseById(id: number): Promise<Expense> {
-    const expense = await this.expenseRepository.findOne(id);
+    const expense = await this.expenseRepository.findOne(id, {
+      relations: ['category']
+    });
 
     if(!expense) {
       throw new NotFoundException('Expense not found.');

@@ -1,15 +1,17 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe, Query } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { Expense } from './expense.entity';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { FilterExpenseDto } from './dto/filter-expense.dto';
 
 @Controller('expenses')
 export class ExpensesController {
   constructor(private expensesService: ExpensesService) {}
 
   @Get()
-  async getAllExpenses(@Param('id') offset: number, @Param('limit') limit: number): Promise<Expense[]> {
-    return this.expensesService.getAllExpenses(offset, limit);
+  async getAllExpenses(@Query() filterExpenseDto: FilterExpenseDto): Promise<Expense[]> {
+    return this.expensesService.getAllExpenses(filterExpenseDto);
   }
 
   @Post()
@@ -20,8 +22,8 @@ export class ExpensesController {
 
   @Patch('/:id')
   @UsePipes(ValidationPipe)
-  async updateExpense(@Param('id', ParseIntPipe) id: number,  @Body() createExpenseDto: CreateExpenseDto): Promise<Expense> {
-    return await this.expensesService.updateExpense(id, createExpenseDto);
+  async updateExpense(@Param('id', ParseIntPipe) id: number,  @Body() updateExpenseDto: UpdateExpenseDto): Promise<Expense> {
+    return await this.expensesService.updateExpense(id, updateExpenseDto);
   }
 
   @Get('/:id')

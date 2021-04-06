@@ -15,7 +15,9 @@ export class Expense extends BaseEntity {
   @Column('decimal')
   amount: number
   
-  @ManyToOne(() => Category, category => category.expenses)
+  @ManyToOne(() => Category, category => category.expenses, {
+    onDelete: 'CASCADE'
+  })
   category: Category
 
   @CreateDateColumn()

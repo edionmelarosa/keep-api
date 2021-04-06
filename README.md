@@ -26,9 +26,9 @@ An API for expense tracking application.
 * Available routes
     * Categories
         * GET `/categories`: Get all categories
-        * GET `/categories/id: Get a category
-        * POST `/categories/: Create a category
-        * PATCH `/categories/id: Update a category
+        * GET `/categories/id`: Get a category
+        * POST `/categories/`: Create a category
+        * PATCH `/categories/id`: Update a category
         * DELETE `/categories/id`: Delete a category
 
 ### TODO

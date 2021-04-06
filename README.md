@@ -23,17 +23,26 @@ An API for expense tracking application.
     Before starting, make sure you're database server have been started.
     `yarn` - `yarn run start:dev`
     `npm` - `npm run start:dev`
-* Available routes
-    * Categories
-        * GET `/categories`: Get all categories
-        * GET `/categories/id`: Get a category
-        * POST `/categories/`: Create a category
-        * PATCH `/categories/id`: Update a category
-        * DELETE `/categories/id`: Delete a category
+
+
+## Available routes
+* Categories
+    * GET `/categories`: Get all categories
+        * filters: name
+    * GET `/categories/id`: Get a category
+    * POST `/categories/`: Create a category
+    * PATCH `/categories/id`: Update a category
+    * DELETE `/categories/id`: Delete a category
+
+* Expenses
+    * GET `/expenses`: Get all expenses
+        * filters: name and category
+    * GET `/expenses/id`: Get a expense
+    * POST `/expenses/`: Create a expense
+    * PATCH `/expenses/id`: Update a expense
+    * DELETE `/expenses/id`: Delete a expense
 
 ### TODO
-* Crud expenses
- - category, name, description, amount
 * Crud income
  - name, description, amount
 * Reports

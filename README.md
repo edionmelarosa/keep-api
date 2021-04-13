@@ -43,7 +43,5 @@ An API for expense tracking application.
     * DELETE `/expenses/id`: Delete a expense
 
 ### TODO
-* Crud income
- - name, description, amount
 * Reports
   - Daily, weekly, monthly, yearly

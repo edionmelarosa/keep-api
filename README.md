@@ -36,11 +36,19 @@ An API for expense tracking application.
 
 * Expenses
     * GET `/expenses`: Get all expenses
-        * filters: name and category
+        * filters: name and expense
     * GET `/expenses/id`: Get a expense
     * POST `/expenses/`: Create a expense
     * PATCH `/expenses/id`: Update a expense
     * DELETE `/expenses/id`: Delete a expense
+
+* Incomes
+    * GET `/incomes`: Get all incomes
+        * filters: name and income
+    * GET `/incomes/id`: Get a income
+    * POST `/incomes/`: Create a income
+    * PATCH `/incomes/id`: Update a income
+    * DELETE `/incomes/id`: Delete a income
 
 ### TODO
 * Reports

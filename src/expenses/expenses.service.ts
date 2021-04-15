@@ -17,23 +17,7 @@ export class ExpensesService {
   ){}
 
   async getAllExpenses(filterExpenseDto: FilterExpenseDto): Promise<Expense[]> {
-    const {category, name} = filterExpenseDto;
-    interface whereInterface {
-      name?: FindOperator<string>,
-      category?: number
-    }
-    const where: whereInterface = {}
-    if (name) {
-      where.name = Like(`%${name}%`)
-    }
-    if (category) {
-      where.category = category 
-    }
-
-    return await this.expenseRepository.find({
-      where,
-      relations: ['category']
-    });
+    return await this.expenseRepository.search(filterExpenseDto);
   }
 
   async createExpense(createExpenseDto: CreateExpenseDto): Promise<Expense> {

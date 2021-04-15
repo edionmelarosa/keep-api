@@ -20,9 +20,9 @@ export class Expense extends BaseEntity {
   })
   category: Category
 
-  @CreateDateColumn()
+  @CreateDateColumn({type: 'date'})
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({type: 'date'})
   updatedAt: Date
 }

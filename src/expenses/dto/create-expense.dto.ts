@@ -1,5 +1,4 @@
-import { IsInstance, IsNotEmpty } from "class-validator";
-import { Category } from "src/categories/category.entity";
+import { IsNotEmpty } from "class-validator";
 
 export class CreateExpenseDto {
   @IsNotEmpty()

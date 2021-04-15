@@ -10,7 +10,6 @@ export class ExpensesController {
   constructor(private expensesService: ExpensesService) {}
 
   @Get()
-  @UsePipes(ValidationPipe)
   async getAllExpenses(@Query() filterExpenseDto: FilterExpenseDto): Promise<Expense[]> {
     return this.expensesService.getAllExpenses(filterExpenseDto);
   }

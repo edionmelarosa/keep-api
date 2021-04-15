@@ -18,9 +18,9 @@ export class Category extends BaseEntity {
   @OneToMany(() => Expense, expense => expense.category)
   expenses: Expense[]
   
-  @CreateDateColumn()
+  @CreateDateColumn({type: 'date'})
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({type: 'date'})
   updatedAt: Date
 }

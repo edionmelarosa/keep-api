@@ -14,9 +14,9 @@ export class Income extends BaseEntity {
   @Column('decimal')
   amount: number
 
-  @CreateDateColumn()
+  @CreateDateColumn({type: 'date'})
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({type: 'date'})
   updatedAt: Date
 }

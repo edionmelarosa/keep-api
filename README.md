@@ -36,7 +36,7 @@ An API for expense tracking application.
 
 * Expenses
     * GET `/expenses`: Get all expenses
-        * filters: name and expense
+        * filters: name and expense, date(from, to)
     * GET `/expenses/id`: Get a expense
     * POST `/expenses/`: Create a expense
     * PATCH `/expenses/id`: Update a expense
@@ -51,5 +51,9 @@ An API for expense tracking application.
     * DELETE `/incomes/id`: Delete a income
 
 ### TODO
-* Reports
-  - Daily, weekly, monthly, yearly
+* Settings
+* Authentication
+ - need ideas on this
+
+### Ideas
+* Add feature to add a family member which is another user

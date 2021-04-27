@@ -6,10 +6,10 @@ export class User extends BaseEntity {
   id: number
 
   @Column()
-  fistName
+  firstName: string
 
   @Column()
-  lastName
+  lastName: string
   
   @Column()
   email: string

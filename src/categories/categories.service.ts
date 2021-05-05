@@ -4,6 +4,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoryRepository } from './category.repository';
 import { Category } from './category.entity';
 import { FilterCategoryDto } from './dto/filter-category.dto';
+import { Like, FindOperator } from 'typeorm';
 
 @Injectable()
 export class CategoriesService {
@@ -15,17 +16,20 @@ export class CategoriesService {
   async getAllCategories(filterCategoryDto: FilterCategoryDto): Promise<Category[]> {
     const {name} = filterCategoryDto;
     interface whereInterface {
-      name?: string
+      name?: FindOperator<String>
     }
 
     const where: whereInterface = {}
     if (name) {
-      where.name = name;
+      where.name = Like(`%${name}%`);
     }
 
     return await this.categoryRepository.find({
       where,
-      relations: ['expenses']
+      relations: ['expenses'],
+      order: {
+        id: "DESC"
+      }
     });
   }
 
@@ -38,12 +42,16 @@ export class CategoriesService {
     return await this.categoryRepository.updateCategory(category, createCategoryDto);
   }
 
-  async deleteCategory(id: number): Promise<void> {
-    const result = await this.categoryRepository.delete(id);
+  async deleteCategory(id: number): Promise<Category> {
+    const category = await this.categoryRepository.findOne(id);
     
-    if(result.affected === 0) {
+    if(!category) {
       throw new NotFoundException('Category not found.');
     }
+
+    const result = await this.categoryRepository.delete(id);
+
+    return category;
   }
 
   async getCategoryById(id: number): Promise<Category> {

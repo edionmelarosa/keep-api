@@ -18,9 +18,9 @@ export class CategoryRepository extends Repository<Category> {
 
   async updateCategory(category: Category, createCategoryDto: CreateCategoryDto): Promise<Category> {
     const {name, graphColor, maxAmount} = createCategoryDto;
-    category.name = name;
-    category.graphColor = graphColor;
-    category.maxAmount = maxAmount;
+    category.name = name ?? category.name;
+    category.graphColor = graphColor ?? category.graphColor;
+    category.maxAmount = maxAmount ?? category.maxAmount;
     await category.save();
 
     return category;

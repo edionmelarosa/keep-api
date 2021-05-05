@@ -9,10 +9,10 @@ export class Category extends BaseEntity {
   @Column()
   name: string
 
-  @Column()
+  @Column({default: 'red'})
   graphColor: string
 
-  @Column('decimal')
+  @Column('decimal', {nullable: true})
   maxAmount: number
 
   @OneToMany(() => Expense, expense => expense.category)

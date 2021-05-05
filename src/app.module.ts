@@ -5,14 +5,15 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { ExpensesModule } from './expenses/expenses.module';
 import { IncomesModule } from './incomes/incomes.module';
 import { AuthModule } from './auth/auth.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
-CategoriesModule,
-  ExpensesModule,
-  IncomesModule,
-  AuthModule,
-  TypeOrmModule.forRoot(typeOrmConfig)
+    GraphQLModule.forRoot({
+      autoSchemaFile: true
+    }),
+  TypeOrmModule.forRoot(typeOrmConfig),
+  CategoriesModule, ExpensesModule, IncomesModule, AuthModule
   ],
 })
 export class AppModule {}

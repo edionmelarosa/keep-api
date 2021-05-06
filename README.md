@@ -10,6 +10,7 @@ An API for expense tracking application.
 ## Technology
 * [NestJs](https://nestjs.com/)
 * [TypeOrm](https://typeorm.io/#/entities)
+* [GraphQl](https://graphql.org/)
 
 ## Installation
 * Install packages
@@ -23,32 +24,6 @@ An API for expense tracking application.
     Before starting, make sure you're database server have been started.
     `yarn` - `yarn run start:dev`
     `npm` - `npm run start:dev`
-
-
-## Available routes
-* Categories
-    * GET `/categories`: Get all categories
-        * filters: name
-    * GET `/categories/id`: Get a category
-    * POST `/categories/`: Create a category
-    * PATCH `/categories/id`: Update a category
-    * DELETE `/categories/id`: Delete a category
-
-* Expenses
-    * GET `/expenses`: Get all expenses
-        * filters: name and expense, date(from, to)
-    * GET `/expenses/id`: Get a expense
-    * POST `/expenses/`: Create a expense
-    * PATCH `/expenses/id`: Update a expense
-    * DELETE `/expenses/id`: Delete a expense
-
-* Incomes
-    * GET `/incomes`: Get all incomes
-        * filters: name and income
-    * GET `/incomes/id`: Get a income
-    * POST `/incomes/`: Create a income
-    * PATCH `/incomes/id`: Update a income
-    * DELETE `/incomes/id`: Delete a income
 
 ### TODO
 * Settings

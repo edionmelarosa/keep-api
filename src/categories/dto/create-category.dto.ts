@@ -7,11 +7,9 @@ export class CreateCategoryDto {
   @Field()
   name: string;
 
-  @IsString()
   @Field({nullable: true})
   graphColor?: string
 
-  @IsNumber()
   @Field({nullable: true})
-  maxAmount: number
+  maxAmount?: number
 }

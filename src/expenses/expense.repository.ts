@@ -1,9 +1,9 @@
 import { Between, EntityRepository, FindOperator, Like, Raw, Repository } from "typeorm";
 import { Expense } from './expense.entity';
 import { CreateExpenseDto } from './dto/create-expense.dto';
-import { Category } from "src/categories/category.entity";
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { FilterExpenseDto } from './dto/filter-expense.dto';
+import { Category } from '../categories/category.entity';
 
 @EntityRepository(Expense)
 export class ExpenseRepository extends Repository<Expense> {
@@ -19,11 +19,12 @@ export class ExpenseRepository extends Repository<Expense> {
     return expense;
   }
 
-  async updateExpense(expense: Expense, updateExpenseDto: UpdateExpenseDto): Promise<Expense> {
+  async updateExpense(expense: Expense, category: Category|null, updateExpenseDto: UpdateExpenseDto): Promise<Expense> {
     const {name, description, amount} = updateExpenseDto;
-    expense.name = name;
-    expense.description = description;
-    expense.amount = amount;
+    expense.name = name ?? expense.name;
+    expense.description = description ?? expense.description;
+    expense.amount = amount ?? expense.amount;
+    expense.category = category ?? expense.category;
     await expense.save();
 
     return expense;
@@ -34,7 +35,7 @@ export class ExpenseRepository extends Repository<Expense> {
     interface whereInterface {
       name?: FindOperator<string>,
       category?: number,
-      createdAt?: FindOperator<Date>
+      createdAt?: FindOperator<string>
     }
 
     const where: whereInterface = {}

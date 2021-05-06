@@ -43,13 +43,13 @@ export class CategoriesService {
   }
 
   async deleteCategory(id: number): Promise<Category> {
-    const category = await this.categoryRepository.findOne(id);
+    const category = await this.getCategoryById(id);
     
     if(!category) {
       throw new NotFoundException('Category not found.');
     }
 
-    const result = await this.categoryRepository.delete(id);
+    await this.categoryRepository.delete(id);
 
     return category;
   }

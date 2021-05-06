@@ -35,7 +35,7 @@ export class ExpensesController {
   @Delete('/:id')
   @HttpCode(204)
   @UsePipes(ValidationPipe)
-  async deleteExpense(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  async deleteExpense(@Param('id', ParseIntPipe) id: number): Promise<Expense> {
     return await this.expensesService.deleteExpense(id);
   }
 }

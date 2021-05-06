@@ -28,15 +28,26 @@ export class ExpensesService {
 
   async updateExpense(id: number, updateExpenseDto: UpdateExpenseDto): Promise<Expense> {
     const expense = await this.getExpenseById(id);
-    return await this.expenseRepository.updateExpense(expense, updateExpenseDto);
+    const {category} = updateExpenseDto;
+
+    let categoryFound = null;
+    if (category) {
+      categoryFound = await this.categoriesService.getCategoryById(category);
+    }
+
+    return await this.expenseRepository.updateExpense(expense, categoryFound, updateExpenseDto);
   }
 
-  async deleteExpense(id: number): Promise<void> {
-    const result = await this.expenseRepository.delete(id);
+  async deleteExpense(id: number): Promise<Expense> {
+    const expense = await this.getExpenseById(id);
     
-    if(result.affected === 0) {
+    if(!expense) {
       throw new NotFoundException('Expense not found.');
     }
+
+    await this.expenseRepository.delete(id)
+
+    return expense;
   }
 
   async getExpenseById(id: number): Promise<Expense> {

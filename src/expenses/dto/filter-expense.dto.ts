@@ -1,12 +1,17 @@
+import { ArgsType, Field } from "@nestjs/graphql";
 import { IsDateString } from "class-validator";
 
+@ArgsType()
 export class FilterExpenseDto {
+  @Field({nullable: true})
   name: string;
+
+  @Field({nullable: true})
   category: number
 
-  @IsDateString()
-  from: Date
+  @Field({nullable: true})
+  from: string
   
-  @IsDateString()
-  to: Date
+  @Field({nullable: true})
+  to: string
 }

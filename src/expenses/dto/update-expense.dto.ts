@@ -1,11 +1,18 @@
+import { Field, InputType } from "@nestjs/graphql";
 import { IsInstance, IsNotEmpty } from "class-validator";
 
+@InputType()
 export class UpdateExpenseDto {
   @IsNotEmpty()
-  name: string;
+  @Field({nullable: true})
+  name?: string;
 
-  description: string
+  @Field({nullable: true})
+  description?: string
 
-  @IsNotEmpty()
-  amount: number
+  @Field({nullable: true})
+  amount?: number
+
+  @Field({nullable: true})
+  category?: number
 }

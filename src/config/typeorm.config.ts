@@ -4,9 +4,9 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: 'localhost',
   port: 5432,
-  username: 'edionme',
-  password: 'admin123',
-  database: 'keep-api',
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   autoLoadEntities: true,
   synchronize: true
 }

@@ -24,11 +24,13 @@ An API for expense tracking application.
     Before starting, make sure you're database server have been started.
     `yarn` - `yarn run start:dev`
     `npm` - `npm run start:dev`
+* GraphQl Playground
+`/graphql`
 
 ### TODO
 * Settings
 * Authentication
- - need ideas on this
+    * need ideas on this
 
 ### Ideas
 * Add feature to add a family member which is another user

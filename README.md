@@ -28,9 +28,10 @@ An API for expense tracking application.
 `/graphql`
 
 ### TODO
-* Settings
-* Authentication
-    * need ideas on this
+* Authentication - When user wants to save/sync records
+    * let user register with email and password
+    * verify email
 
 ### Ideas
 * Add feature to add a family member which is another user
+* Settings - Settings e.g for graphs, reports
